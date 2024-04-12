@@ -1,0 +1,10 @@
+@(projects: List[Project])
+
+@main("Projects") {
+ Projects:<br>
+	@projects.map{project =>
+		@project.id&nbsp;@project.name
+		<a href="@routes.Application.projects(project.id)">details</a>
+		<br>
+	}
+}
