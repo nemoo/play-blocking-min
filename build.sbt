@@ -12,6 +12,7 @@ scalaVersion := "3.3.3"
 
 routesGenerator := InjectedRoutesGenerator
 
+libraryDependencies += guice
 libraryDependencies += "org.playframework" %% "play-slick" % "6.1.0"
 libraryDependencies += "org.playframework" %% "play-slick-evolutions" % "6.1.0"
 
