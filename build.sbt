@@ -15,6 +15,7 @@ routesGenerator := InjectedRoutesGenerator
 libraryDependencies += guice
 libraryDependencies += "org.playframework" %% "play-slick" % "6.1.0"
 libraryDependencies += "org.playframework" %% "play-slick-evolutions" % "6.1.0"
+libraryDependencies += "com.github.takezoe" %% "blocking-slick" % "0.0.15-SNAPSHOT"
 
 libraryDependencies += "org.postgresql" % "postgresql" % "42.7.3"
 libraryDependencies += ws
