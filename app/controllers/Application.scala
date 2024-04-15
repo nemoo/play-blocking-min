@@ -32,7 +32,8 @@ class Application @Inject()(
 
   def listProjects: Action[AnyContent] = Action { implicit rs =>
       DB.withSession{ implicit s =>
-        given mySession: com.github.takezoe.slick.blocking.BlockingPostgresDriver.blockingApi.Session = s
+//        given com.github.takezoe.slick.blocking.BlockingPostgresDriver.blockingApi.Session = s
+        given Session = s
         val projects = projectRepo.all
         Ok(views.html.projects(projects))
       }

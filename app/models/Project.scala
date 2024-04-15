@@ -27,14 +27,13 @@ class ProjectRepo @Inject()(taskRepo: TaskRepo)(protected val dbConfigProvider: 
 //  def findByName(name: String): Future[List[Project]] =
 //    db.run(_findByName(name).result)
 //
-  def all(implicit session: Session): List[Project] =
-//    Nil
+  def all(using session: Session): List[Project] =
     Projects.list
 
-  def create(name: String): Future[Long] = {
-    val project = Project(0, name)
-    db.run(Projects returning Projects.map(_.id) += project)
-  }
+//  def create(name: String)(using session: Session): Long = {
+//    val project = Project(0, name)
+//    Projects returning Projects.map(_.id) += project
+//  }
 
 //  def delete(name: String): Future[Int] = {
 //    val query = _findByName(name)
