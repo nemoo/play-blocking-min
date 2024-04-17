@@ -19,9 +19,9 @@
     <logger name="play" level="DEBUG" />
     <logger name="application" level="DEBUG" />
     <logger name="play.api.db.evolutions" level="DEBUG" />
-    <logger name="slick.jdbc.JdbcBackend.statement"  level="DEBUG" /> <!-- Will log all statements -->
+    <logger name="slick.jdbc.JdbcBackend.statement"  level="INFO" /> <!-- Will log all statements -->
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="ASYNCSTDOUT" />
     </root>
 
