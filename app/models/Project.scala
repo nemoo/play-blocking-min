@@ -4,10 +4,12 @@ import javax.inject.Inject
 import play.api.db.slick.DatabaseConfigProvider
 import slick.dbio
 import slick.dbio.Effect.Read
-import slick.jdbc.JdbcProfile
+import slick.jdbc.{JdbcBackend, JdbcProfile}
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import com.github.takezoe.slick.blocking.BlockingPostgresDriver.blockingApi._
+import com.github.takezoe.slick.blocking.BlockingPostgresDriver.blockingApi.*
+import slick.lifted.TableQuery.Extract
 
 case class Project(id: Long, name: String)
 
@@ -15,9 +17,10 @@ class ProjectRepo @Inject()(taskRepo: TaskRepo)(protected val dbConfigProvider: 
   
   private[models] val Projects = TableQuery[ProjectsTable]
 
-//  private def _findById(id: Long): DBIO[Option[Project]] =
-//    Projects.filter(_.id === id).result.headOption
-//
+  def findById(id: Long)(using session: JdbcBackend#Session): Option[Project] =
+    Projects.filter(_.id === id)
+      .firstOption
+
 //  private def _findByName(name: String): Query[ProjectsTable, Project, List] =
 //    Projects.filter(_.name === name).to[List]
 //
@@ -27,13 +30,13 @@ class ProjectRepo @Inject()(taskRepo: TaskRepo)(protected val dbConfigProvider: 
 //  def findByName(name: String): Future[List[Project]] =
 //    db.run(_findByName(name).result)
 //
-  def all(using session: Session): List[Project] =
+  def all(using session: JdbcBackend#Session): List[Project] =
     Projects.list
 
-//  def create(name: String)(using session: Session): Long = {
-//    val project = Project(0, name)
-//    Projects returning Projects.map(_.id) += project
-//  }
+  def create(name: String)(using session: JdbcBackend#Session): Long = {
+    val project = Project(0, name)
+    (Projects returning Projects.map(_.id)).insert(project)
+  }
 
 //  def delete(name: String): Future[Int] = {
 //    val query = _findByName(name)
